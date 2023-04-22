@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import ImageForm
+import pytesseract
+from PIL import Image
+import os
 
 def dashboard(request):
     return render(request, 'dashboard.html')
 
 def upload_image(request):
+    pytesseract.pytesseract.tesseract_cmd = "C:/Program Files/Tesseract-OCR/tesseract.exe"
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
