@@ -11,28 +11,22 @@
         </div>
     </header>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group">
-            <input type="file" name="image" class="form-control" required>
-            <input type="submit" value="Subir" required>
-        </div>
-    </form>
     <!-- About Section-->
-    <section class="page-section bg-primary text-white mb-0" id="about">
+    <section class="page-section mb-0" id="about">
         <div class="container">
-            <!-- About Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-white">Acerca del proyecto</h2>
-            <!-- Icon Divider-->
-            <div class="divider-custom divider-light">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
             <!-- About Section Content-->
             <div class="row">
-                <div class="col-lg-4 ms-auto"><p class="lead">Hospintel te permite realizar captura de información médica para un expediente de una manera automatizada remplazando la captura aburrida y extenuante de ingresar muchos datos a un sistema de manera manual</p></div>
-                <div class="col-lg-4 me-auto"><p class="lead">Unase al cambio y permita que nuestra aplicación le ayude a procesar imagenes y extraer datos mediante el Procesamiento de Lenguaje Natural (NLP) y OCR</p></div>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group col-lg-4 me-auto">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="file" name="image" class="form-control" required>
+                            <label for="imagen">Imagen</label>
+                            <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                        </div>
+                        <input class="btn btn-primary btn-xl" type="submit" value="Subir" required>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

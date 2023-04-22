@@ -20,7 +20,7 @@ def upload_image(request):
                     f.write(chunk)
             # Procesar la imagen utilizando pytesseract
             img = Image.open('temp_image.jpg')
-            text = pytesseract.image_to_string(img)
+            text = pytesseract.image_to_string(img, lang="spa")
             # Eliminar la imagen temporal
             f.close()
             os.remove('temp_image.jpg')
