@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import ImageForm
 import pytesseract
@@ -6,12 +6,15 @@ import re
 import os
 from datetime import datetime
 from myapp.models import Cita
-from .forms import ImageForm
+from .forms import ImageForm, PacienteForm
 from PIL import Image
+from .models import Paciente
 
+#vista para el dashboard
 def dashboard(request):
     return render(request, 'dashboard.html')
 
+#vista para subida de la imagen
 def upload_image(request):
     pytesseract.pytesseract.tesseract_cmd = "C:/Program Files/Tesseract-OCR/tesseract.exe"
     if request.method == 'POST':
@@ -56,3 +59,38 @@ def upload_image(request):
 
 def redirect_to_dashboard(request):
     return redirect('dashboard')
+
+#FUNCIONES PARA PACIENTES
+def paciente_list(request):
+    pacientes = Paciente.objects.all()
+    return render(request, 'paciente_list.html', {'pacientes': pacientes})
+
+def paciente_create(request):
+    if request.method == 'POST':
+        form = PacienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('paciente_list')
+    else:
+        form = PacienteForm()
+    return render(request, 'paciente_form.html', {'form': form})
+
+def paciente_detail(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    return render(request, 'paciente_detail.html', {'paciente': paciente})
+
+def paciente_update(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    if request.method == 'POST':
+        form = PacienteForm(request.POST, instance=paciente)
+        if form.is_valid():
+            form.save(commit=False)
+            return redirect('paciente_list')
+    else:
+        form = PacienteForm(instance=paciente)
+    return render(request, 'paciente_form.html', {'form': form})
+
+def paciente_delete(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    paciente.delete()
+    return redirect('paciente_list')

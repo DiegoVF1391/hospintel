@@ -8,12 +8,14 @@ class Image(models.Model):
         return self.image.name
 
 class Paciente(models.Model):
-    nombre = models.CharField(max_length=200)
-    domicio = models.CharField(max_length=200)
+    nombre = models.CharField(max_length=50)
+    apellido_paterno = models.CharField(max_length=60, default="No ingresado")
+    apellido_materno = models.CharField(max_length=60, default="No ingresado")
+    domicilio = models.CharField(max_length=200)
     sexo = models.CharField(max_length=200)
     edad = models.IntegerField()
     fecha_nacimiento = models.DateField()
-    correo = models.EmailField()
+    correo = models.EmailField(blank=True)
     telefono = models.CharField(max_length=20)
 
 class Cita(models.Model):

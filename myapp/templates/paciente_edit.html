@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h2>Crear Paciente</h2>
+  <form method="POST" action="{% url 'paciente_update' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Modificar usuario</button>
+  </form>
+{% endblock %}
