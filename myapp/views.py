@@ -22,9 +22,9 @@ def upload_image(request):
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             # Aplicar binarización adaptativa para mejorar el contraste de la imagen
             gray = cv2.medianBlur(gray, 3)
-            cv2.imshow('Image',gray)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+            #cv2.imshow('Image',gray)
+            #cv2.waitKey(0)
+            #cv2.destroyAllWindows()
             # Extraer el texto utilizando pytesseract
             text = pytesseract.image_to_string(gray, lang='spa')
             # Mostrar el texto extraído en la consola
